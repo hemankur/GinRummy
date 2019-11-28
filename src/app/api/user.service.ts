@@ -7,6 +7,14 @@ import {SERVER_URL} from "../../environments/environment";
 })
 export class UserService {
 
+  private options = {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    withCredentials: true
+  };
+
   constructor(private http: HttpClient) {
   }
 
@@ -15,6 +23,10 @@ export class UserService {
   }
 
   userLogin(userData: { username: string, password: string }) {
-    return this.http.post(SERVER_URL + '/api/user/login/', userData).toPromise();
+    return this.http.post(SERVER_URL + '/api/user/login/', userData, this.options).toPromise();
+  }
+
+  getUserData(username) {
+    return this.http.get(SERVER_URL + '/api/user/' + username, this.options).toPromise();
   }
 }

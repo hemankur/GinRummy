@@ -1,11 +1,18 @@
 <p>
-  Login!
+  Welcome!
 </p>
+<p class="alert-warning" *ngIf="errorMessage">{{errorMessage}}</p>
 <label> Username:
-  <input id="username" type="text" [(ngModel)]="name">
+  <input id="username" type="text" [(ngModel)]="username">
 </label>
+<br>
 <label> Password:
   <input id="password" type="password" [(ngModel)]="password">
 </label>
-<br>
-<input id="submit" value="Submit" type="button" (click)="onSubmit()">
+<p>
+  <input id="submit" value="Login!" type="button" (click)="login()">
+</p>
+<p>
+  <input type="button" value="Go to registration" (click)="router.navigate(['registration'])">
+</p>
+<input type="button" (click)="onClickTest()" value="test">

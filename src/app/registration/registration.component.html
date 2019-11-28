@@ -4,8 +4,13 @@
 <label> Username:
   <input id="username" type="text" [(ngModel)]="name">
 </label>
+<br>
 <label> Password:
   <input id="password" type="password" [(ngModel)]="password">
 </label>
-<br>
-<input id="submit" value="Submit" type="button" (click)="onSubmit()">
+<p>
+  <input id="submit" value="Register!" type="button" (click)="onSubmit()">
+</p>
+<p>
+  <input type="button" value="Go to Login" (click)="router.navigate([''])">
+</p>

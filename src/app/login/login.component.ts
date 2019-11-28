@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../api/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -7,24 +8,39 @@ import {UserService} from "../api/user.service";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  name: string;
+  username: string;
   password: string;
+  errorMessage: string;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
   }
 
   ngOnInit() {
   }
 
-  onSubmit() {
+  login() {
     let userData = {
-      username: this.name,
+      username: this.username,
       password: this.password
     };
     this.userService.userLogin(userData)
-      .then(res => console.log(res))
-      .catch(err => {
-        console.log(err);
+      .then((res: { message: string, auth: boolean }) => {
+        if (res.auth) {
+          this.router.navigate(['menu'])
+            .catch(err => console.log(err));
+        } else {
+          this.errorMessage = res.message;
+          console.log(this.errorMessage);
+        }
+      }).catch(err => {
+      console.log(err);
+    });
+  }
+
+  onClickTest() {
+    this.userService.getUserData(this.username)
+      .then(res => {
+        console.log(res);
       });
   }
 }
