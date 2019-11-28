@@ -14,6 +14,7 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.username = localStorage.getItem('username');
   }
 
   onClickPlay() {

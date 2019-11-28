@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
     this.userService.userLogin(userData)
       .then((res: { message: string, auth: boolean }) => {
         if (res.auth) {
+          localStorage.setItem('username', userData.username);
           this.router.navigate(['menu'])
             .catch(err => console.log(err));
         } else {

@@ -31,6 +31,6 @@ export class UserService {
   }
 
   userLogout(username) {
-    return this.http.post(SERVER_URL + '/api/user/logout', username, this.options).toPromise();
+    return this.http.post(SERVER_URL + '/api/user/logout', {username}, this.options).toPromise();
   }
 }
