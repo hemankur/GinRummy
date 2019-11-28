@@ -29,4 +29,8 @@ export class UserService {
   getUserData(username) {
     return this.http.get(SERVER_URL + '/api/user/' + username, this.options).toPromise();
   }
+
+  userLogout(username) {
+    return this.http.post(SERVER_URL + '/api/user/logout', username, this.options).toPromise();
+  }
 }

@@ -10,6 +10,7 @@ import {RegistrationComponent} from './registration/registration.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LobbyComponent } from './lobby/lobby.component';
 import { MenuComponent } from './menu/menu.component';
+import { RulesComponent } from './rules/rules.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { MenuComponent } from './menu/menu.component';
     NotFoundComponent,
     LobbyComponent,
     MenuComponent,
+    RulesComponent,
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,7 @@ import {RegistrationComponent} from "./registration/registration.component";
 import {NotFoundComponent} from "./not-found/not-found.component";
 import {LobbyComponent} from "./lobby/lobby.component";
 import {MenuComponent} from "./menu/menu.component";
+import {RulesComponent} from "./rules/rules.component";
 
 
 const routes: Routes = [
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path: 'registration', component: RegistrationComponent},
   {path: 'menu', component: MenuComponent},
   {path: 'lobby', component: LobbyComponent},
+  {path: 'rules', component: RulesComponent},
   {path: '**', component: NotFoundComponent}
 ];
 
