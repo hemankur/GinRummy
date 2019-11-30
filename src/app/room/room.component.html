@@ -1,0 +1,20 @@
+<p>
+  <img src="../../assets/cards/back.png" *ngFor="let a of [1,2,3,4,5,6,7,8,9,0]" class="cards" alt="Unknown Card">
+</p>
+<br><br>
+<p>
+  <img class="cards" src="../../assets/cards/back.png" alt="Deck"
+       (click)="getNewCard()">
+  <img class="cards" alt="{{topCard.value}} of {{topCard.suit}}" *ngIf="topCard"
+       src="../../assets/cards/{{topCard.value.toString()}}{{topCard.suit[0]}}.svg"
+       (click)="onClickTop()">
+</p>
+<br><br>
+<p>
+  <img alt="{{card.value}} of {{card.suit}}" class="cards" *ngFor="let card of cards"
+       src="../../assets/cards/{{card.value.toString()}}{{card.suit[0]}}.svg" (click)="onClickCard(card)">
+</p>
+
+<p>
+  <input type="button" class="btn" (click)="onClickMove()" value="Make Move">
+</p>
