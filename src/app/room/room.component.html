@@ -8,9 +8,6 @@
   <img class="cards" alt="{{topCard.value}} of {{topCard.suit}}" *ngIf="topCard"
        src="../../assets/cards/{{topCard.value.toString()}}{{topCard.suit[0]}}.svg"
        (click)="onClickTop()">
-  <img class="cards" alt="{{removedCard.value}} of {{removedCard.suit}}" *ngIf="removedCard"
-       src="../../assets/cards/{{removedCard.value.toString()}}{{removedCard.suit[0]}}.svg"
-       (click)="onClickTop()">
 </p>
 <br><br>
 <p>

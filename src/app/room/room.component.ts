@@ -9,7 +9,6 @@ import {WebSocketService} from "../api/web-socket.service";
 export class RoomComponent implements OnInit {
   cards: [{ suit: any, value: any }];
   topCard: [{ suit: any, value: any }];
-  removedCard: [{suit: any, value: any}];
 
   constructor(private webSocketService: WebSocketService) {
     this.webSocketService.listenGame('newState').subscribe((res) => {
@@ -25,7 +24,6 @@ export class RoomComponent implements OnInit {
     this.webSocketService.listenGame('dataUpdate').subscribe((res: any) => {
       this.cards = res.cards;
       this.topCard = res.topCard;
-      this.removedCard = res.removedCard;
     });
   }
 
@@ -42,6 +40,6 @@ export class RoomComponent implements OnInit {
   }
 
   getNewCard() {
-
+    this.webSocketService.emitGames('newCard', {});
   }
 }
