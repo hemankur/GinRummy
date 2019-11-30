@@ -13,6 +13,7 @@ import {MenuComponent} from './menu/menu.component';
 import {RulesComponent} from './rules/rules.component';
 import {SocketIoConfig, SocketIoModule} from "ngx-socket-io";
 import {SERVER_URL} from "../environments/environment";
+import { RoomComponent } from './room/room.component';
 
 const config: SocketIoConfig = {
   url: SERVER_URL, options: {
@@ -33,6 +34,7 @@ const config: SocketIoConfig = {
     LobbyComponent,
     MenuComponent,
     RulesComponent,
+    RoomComponent,
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,10 @@
   <span *ngIf="username"> {{username}}!</span>
 </p>
 
+<p *ngFor="let i of rooms">
+  <input type="button" class="btn" value="Join Room {{i}}" (click)="onClickJoin(i)">
+</p>
+
 <p>
-  <input type="button" class="btn" value="Join">
+  <input type="button" class="btn" value="Temp" (click)="onClickTemp()">
 </p>

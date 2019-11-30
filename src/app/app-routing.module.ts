@@ -6,6 +6,7 @@ import {NotFoundComponent} from "./not-found/not-found.component";
 import {LobbyComponent} from "./lobby/lobby.component";
 import {MenuComponent} from "./menu/menu.component";
 import {RulesComponent} from "./rules/rules.component";
+import {RoomComponent} from "./room/room.component";
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'menu', component: MenuComponent},
   {path: 'lobby', component: LobbyComponent},
   {path: 'rules', component: RulesComponent},
+  {path: 'room', component: RoomComponent},
   {path: '**', component: NotFoundComponent}
 ];
 
