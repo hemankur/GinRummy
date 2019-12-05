@@ -16,9 +16,6 @@ export class RoomComponent implements OnInit {
   constructor(private webSocketService: WebSocketService, private gameService: GameService) {
     this.gameID = localStorage.getItem('gameID');
     this.username = localStorage.getItem('username');
-    /*this.webSocketService.listenGame('newState').subscribe((res) => {
-      console.log(res);
-    });*/
   }
 
   ngOnInit() {

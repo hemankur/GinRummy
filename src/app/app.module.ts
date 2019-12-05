@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -13,7 +13,9 @@ import {MenuComponent} from './menu/menu.component';
 import {RulesComponent} from './rules/rules.component';
 import {SocketIoConfig, SocketIoModule} from "ngx-socket-io";
 import {SERVER_URL} from "../environments/environment";
-import { RoomComponent } from './room/room.component';
+import {RoomComponent} from './room/room.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 
 const config: SocketIoConfig = {
   url: SERVER_URL, options: {
@@ -41,10 +43,12 @@ const config: SocketIoConfig = {
     AppRoutingModule,
     FormsModule,
     SocketIoModule.forRoot(config),
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {
 }

@@ -12,14 +12,12 @@ export class WebSocketService {
   games: any;
 
   constructor() {
-    this.socket = io(SERVER_URL, {'reconnection': true,
+    this.socket = io(SERVER_URL, {
+      'reconnection': true,
       'reconnectionDelay': 1000,
-      'reconnectionDelayMax' : 5000,
-      'reconnectionAttempts': 5000});
-    this.games = io(SERVER_URL + '/games', {'reconnection': true,
-      'reconnectionDelay': 1000,
-      'reconnectionDelayMax' : 5000,
-      'reconnectionAttempts': 5000});
+      'reconnectionDelayMax': 5000,
+      'reconnectionAttempts': 5000
+    });
   }
 
   listen(eventName: string) {
@@ -30,19 +28,7 @@ export class WebSocketService {
     }));
   }
 
-  listenGame(eventName: string) {
-    return new Observable((subscriber => {
-      this.games.on(eventName, (data) => {
-        subscriber.next(data);
-      });
-    }));
-  }
-
   emit(eventName: string, data: any) {
     this.socket.emit(eventName, data);
-  }
-
-  emitGames(eventName: string, data: any) {
-    this.games.emit(eventName, data);
   }
 }
