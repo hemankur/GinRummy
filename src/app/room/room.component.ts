@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {WebSocketService} from "../api/web-socket.service";
+import {GameService} from "../api/game.service";
 
 @Component({
   selector: 'app-room',
@@ -9,37 +10,68 @@ import {WebSocketService} from "../api/web-socket.service";
 export class RoomComponent implements OnInit {
   cards: [{ suit: any, value: any }];
   topCard: [{ suit: any, value: any }];
+  gameID: string;
+  username: string;
 
-  constructor(private webSocketService: WebSocketService) {
-    this.webSocketService.listenGame('newState').subscribe((res) => {
+  constructor(private webSocketService: WebSocketService, private gameService: GameService) {
+    this.gameID = localStorage.getItem('gameID');
+    this.username = localStorage.getItem('username');
+    /*this.webSocketService.listenGame('newState').subscribe((res) => {
+      console.log(res);
+    });*/
+  }
+
+  ngOnInit() {
+    this.gameID = localStorage.getItem('gameID');
+    this.username = localStorage.getItem('username');
+    this.gameService.getGameData(this.username, this.gameID)
+      .then(res => {
+        console.log(res);
+      });
+
+    this.webSocketService.emit('init', {
+      username: this.username,
+      gameID: this.gameID
+    });
+
+    this.webSocketService.listen('initData').toPromise().then((res: any) => {
+      this.cards = res.cards;
+      this.topCard = res.top;
+      console.log(res);
+    });
+
+    this.webSocketService.listen('updateGame').subscribe((res: any) => {
+      this.cards = res.cards;
+      this.topCard = res.top;
       console.log(res);
     });
   }
 
-  ngOnInit() {
-    this.webSocketService.listenGame('initData').subscribe((res: any) => {
-      this.cards = res.cards;
-      this.topCard = res.top;
-    });
-    this.webSocketService.listenGame('dataUpdate').subscribe((res: any) => {
-      this.cards = res.cards;
-      this.topCard = res.topCard;
-    });
-  }
-
-  onClickMove() {
-
-  }
-
   onClickCard(card: any) {
-    this.webSocketService.emitGames('move', card);
+    this.webSocketService.emit('move', {username: this.username, gameID: this.gameID, card: card});
   }
 
   onClickTop() {
-    this.webSocketService.emitGames('topCard', this.topCard);
+    this.webSocketService.emit('topCard', {username: this.username, topCard: this.topCard, gameID: this.gameID});
   }
 
   getNewCard() {
-    this.webSocketService.emitGames('newCard', {});
+    this.webSocketService.emit('newCard', {username: this.username, gameID: this.gameID});
+  }
+
+  onClickGin() {
+
+  }
+
+  onClickKnock() {
+
+  }
+
+  reconnect() {
+    this.webSocketService.emit('myreconnect', {username: this.username, gameID: this.gameID});
+    this.webSocketService.listen('reconnect').toPromise()
+      .then(res => {
+        console.log(res);
+      })
   }
 }

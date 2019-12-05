@@ -19,6 +19,14 @@ export class LobbyService {
   }
 
   getData() {
-    return this.http.get(SERVER_URL + '/api/games', this.options).toPromise();
+    return this.http.get(SERVER_URL + '/api/games/', this.options).toPromise();
+  }
+
+  createGame(gameID: string) {
+    return this.http.post(SERVER_URL + '/api/games/create/', {gameID: gameID}).toPromise();
+  }
+
+  joinGame(username: string, gameID: string) {
+    return this.http.post(SERVER_URL + '/api/games/join/', {username: username, gameID: gameID}).toPromise();
   }
 }

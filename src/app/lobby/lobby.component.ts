@@ -12,6 +12,8 @@ import {Router} from "@angular/router";
 export class LobbyComponent implements OnInit {
   username: string;
   rooms = [];
+  games = [];
+  gameID: string;
 
   constructor(private userService: UserService,
               private lobbyService: LobbyService,
@@ -19,7 +21,7 @@ export class LobbyComponent implements OnInit {
               private webSocketService: WebSocketService) {
   }
 
-  ngOnInit() {
+  /*ngOnInit() {
     this.username = localStorage.getItem('username');
     this.userService.getUserData(this.username)
       .then(res => {
@@ -58,19 +60,48 @@ export class LobbyComponent implements OnInit {
       console.log(data);
     });
 
+  }*/
+
+  ngOnInit(): void {
+    this.getGames();
   }
 
-  onClickJoin(room: number) {
+  /*onClickJoin(room: number) {
     this.webSocketService.emitGames('joinRoom', room);
     this.webSocketService.listenGame("newUser").subscribe((data) => {
       console.log(data);
       this.router.navigate(['room'])
         .catch(err => console.log(err));
     });
+  }*/
+
+  onClickJoin(game: { gameID: string }) {
+    console.log(game.gameID);
+    const username = localStorage.getItem('username');
+    this.lobbyService.joinGame(username, game.gameID)
+      .then((res: any) => {
+        console.log(res);
+        if (res.status) {
+          localStorage.setItem('gameID', game.gameID);
+          this.router.navigateByUrl('room')
+            .catch(err => console.log(err));
+        }
+      })
   }
 
-  onClickTemp() {
-    this.webSocketService.emitGames('joinRoom', 1);
+  createGame() {
+    this.lobbyService.createGame(this.gameID)
+      .then((res: any) => {
+        console.log(res);
+        this.getGames();
+      })
   }
 
+  private getGames() {
+    this.lobbyService.getData()
+      .then((res: any) => {
+        console.log(res);
+        this.games = res.games;
+      });
+  }
 }

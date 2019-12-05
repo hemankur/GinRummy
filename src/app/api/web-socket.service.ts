@@ -15,11 +15,11 @@ export class WebSocketService {
     this.socket = io(SERVER_URL, {'reconnection': true,
       'reconnectionDelay': 1000,
       'reconnectionDelayMax' : 5000,
-      'reconnectionAttempts': 5});
+      'reconnectionAttempts': 5000});
     this.games = io(SERVER_URL + '/games', {'reconnection': true,
       'reconnectionDelay': 1000,
       'reconnectionDelayMax' : 5000,
-      'reconnectionAttempts': 5});
+      'reconnectionAttempts': 5000});
   }
 
   listen(eventName: string) {

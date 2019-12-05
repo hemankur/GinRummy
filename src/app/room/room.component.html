@@ -15,6 +15,11 @@
        src="../../assets/cards/{{card.value.toString()}}{{card.suit[0]}}.svg" (click)="onClickCard(card)">
 </p>
 
-<p>
-  <input type="button" class="btn" (click)="onClickMove()" value="Make Move">
+<p *ngIf="cards">
+  <input type="button" class="btn-lg" (click)="onClickGin()" value="Gin">
+  <input type="button" class="btn-lg" (click)="onClickKnock()" value="Knock">
+</p>
+
+<p *ngIf="!cards">
+  <input type="button" class="btn-outline-primary" (click)="reconnect()" value="reconnect">
 </p>

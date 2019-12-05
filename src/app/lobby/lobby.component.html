@@ -2,10 +2,17 @@
   <span *ngIf="username"> {{username}}!</span>
 </p>
 
-<p *ngFor="let i of rooms">
+<!--<p *ngFor="let i of rooms">
   <input type="button" class="btn" value="Join Room {{i}}" (click)="onClickJoin(i)">
+</p>-->
+
+<p *ngFor="let i of games">
+  <input type="button" class="btn" value="Join {{i.gameID}}" (click)="onClickJoin(i)">
 </p>
 
 <p>
-  <input type="button" class="btn" value="Temp" (click)="onClickTemp()">
+  <label> GameID:
+    <input type="text" class="text-justify" placeholder="gameID" [(ngModel)]="gameID">
+  </label>
+  <input type="button" class="btn" value="Create Game" (click)="createGame()">
 </p>
