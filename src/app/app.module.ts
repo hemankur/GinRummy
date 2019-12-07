@@ -15,6 +15,8 @@ import {SocketIoConfig, SocketIoModule} from "ngx-socket-io";
 import {SERVER_URL} from "../environments/environment";
 import {RoomComponent} from './room/room.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NgMultiSelectDropDownModule} from "ng-multiselect-dropdown";
+import {NgDragDropModule} from "ng-drag-drop";
 
 
 const config: SocketIoConfig = {

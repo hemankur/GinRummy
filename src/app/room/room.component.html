@@ -1,3 +1,7 @@
+<div>
+  <h2 *ngIf="result">{{result}}</h2>
+</div>
+
 <p>
   <img src="../../assets/cards/back.png" *ngFor="let a of [1,2,3,4,5,6,7,8,9,0]" class="cards" alt="Unknown Card">
 </p>
@@ -10,16 +14,97 @@
        (click)="onClickTop()">
 </p>
 <br><br>
-<p>
-  <img alt="{{card.value}} of {{card.suit}}" class="cards" *ngFor="let card of cards"
-       src="../../assets/cards/{{card.value.toString()}}{{card.suit[0]}}.svg" (click)="onClickCard(card)">
-</p>
+<div class="player-cards">
+  <p class="alert-warning" *ngIf="playerMessage && ! meldMode && ! layoffMode">
+    {{playerMessage}}
+  </p>
+  <p class="alert-warning" *ngIf="alternateMessage && (layoffMode || meldMode)">
+    {{alternateMessage}}
+  </p>
+  <p *ngIf="cards && ! (meldMode || layoffMode)">
+    <img alt="{{card.value}} of {{card.suit}}" class="cards" *ngFor="let card of cards"
+         src="../../assets/cards/{{card.value.toString()}}{{card.suit[0]}}.svg" (click)="onClickCard(card)">
+  </p>
+  <div *ngIf="cards && meldMode">
+    <img alt="{{card.value}} of {{card.suit}}" class="cards" *ngFor="let card of cards"
+         src="../../assets/cards/{{card.value.toString()}}{{card.suit[0]}}.svg" (click)="addToMeld(card)">
+    <div *ngIf="myMeld">
+      <img alt="{{card.value}} of {{card.suit}}" class="meld-cards" *ngFor="let card of myMeld"
+           src="../../assets/cards/{{card.value.toString()}}{{card.suit[0]}}.svg">
+    </div>
+    <input type="button" (click)="createMeld()" value="Confirm">
+  </div>
+
+  <div *ngIf="cards && layoffMode">
+    <img alt="{{card.value}} of {{card.suit}}" class="cards" *ngFor="let card of cards"
+         src="../../assets/cards/{{card.value.toString()}}{{card.suit[0]}}.svg" (click)="layoffCard(card)">
+    <p>Enter meld number.</p>
+    <label>
+      <input type="number" [(ngModel)]="layoffData.meld">
+    </label>
+    <input type="button" (click)="submitLayoff()" value="Confirm">
+  </div>
+</div>
+
 
 <p *ngIf="cards">
   <input type="button" class="btn-lg" (click)="onClickGin()" value="Gin">
   <input type="button" class="btn-lg" (click)="onClickKnock()" value="Knock">
+  <input type="button" class="btn-lg" (click)="onClickMeld()" value="Meld">
+  <input type="button" class="btn-lg" (click)="onClickLayoff()" value="Layoff">
 </p>
+
+<div>
+  <h3 *ngIf="allMelds && cards">Melds so far:</h3>
+  <span *ngFor="let meld of allMelds" class="all-melds">
+    <span>
+      <img alt="{{card.value}} of {{card.suit}}" class="meld-cards" *ngFor="let card of meld"
+           src="../../assets/cards/{{card.value.toString()}}{{card.suit[0]}}.svg">
+    </span>
+  </span>
+</div>
 
 <p *ngIf="!cards">
   <input type="button" class="btn-outline-primary" (click)="reconnect()" value="reconnect">
 </p>
+
+
+<!--<div *ngIf="meldMode" class="melds">
+  <div *ngIf="meld === 1">
+    <p>Select cards for meld 1 in order and press next </p>
+    <img alt="{{card.value}} of {{card.suit}}" class="cards" *ngFor="let card of cardsCopy"
+         src="../../assets/cards/{{card.value.toString()}}{{card.suit[0]}}.svg" (click)="onClickMeld1(card)">
+    <input type="button" class="btn-lg" (click)="onClickNext()" value="Next">
+  </div>
+
+  <div *ngIf="meld === 2">
+    <p>Select cards for meld 2 in order and press next</p>
+    <img alt="{{card.value}} of {{card.suit}}" class="cards" *ngFor="let card of cardsCopy"
+         src="../../assets/cards/{{card.value.toString()}}{{card.suit[0]}}.svg" (click)="onClickMeld2(card)">
+    <input type="button" class="btn-lg" (click)="onClickNext()" value="Next">
+  </div>
+
+  <div *ngIf="meld === 3">
+    <p>Select cards for meld 3 in order and press submit</p>
+    <img alt="{{card.value}} of {{card.suit}}" class="cards" *ngFor="let card of cardsCopy"
+         src="../../assets/cards/{{card.value.toString()}}{{card.suit[0]}}.svg" (click)="onClickMeld3(card)">
+    <input type="button" class="btn-lg" (click)="onClickSubmit()" value="Submit">
+  </div>
+
+</div>
+
+<div *ngIf="meldMode" class="melds">
+
+  <div *ngIf="meld1">
+    <img alt="{{card.value}} of {{card.suit}}" class="meld-cards" *ngFor="let card of meld1"
+         src="../../assets/cards/{{card.value.toString()}}{{card.suit[0]}}.svg" (click)="onClickCard(card)">
+  </div>
+  <div *ngIf="meld2">
+    <img alt="{{card.value}} of {{card.suit}}" class="meld-cards" *ngFor="let card of meld2"
+         src="../../assets/cards/{{card.value.toString()}}{{card.suit[0]}}.svg" (click)="onClickCard(card)">
+  </div>
+  <div *ngIf="meld3">
+    <img alt="{{card.value}} of {{card.suit}}" class="meld-cards" *ngFor="let card of meld3"
+         src="../../assets/cards/{{card.value.toString()}}{{card.suit[0]}}.svg" (click)="onClickCard(card)">
+  </div>
+</div>-->
